@@ -24,5 +24,24 @@ class ViewController: UIViewController {
         return nil
     }
     
+    @IBAction func enviar_QR(_ sender: Any) {
+        DispatchQueue.main.async {
+            do {
+                let imagen_enviar = self.imgQR.image
+                if let imagen_data = imagen_enviar?.jpegData(compressionQuality: 0.9) {
+                    let objetos_compartir = [imagen_data]
+                    let ventana = UIActivityViewController(activityItems: objetos_compartir, applicationActivities: nil)
+                    if self.presentedViewController == nil {
+                        self.present(ventana, animated: true, completion: nil)
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                        self.present(ventana, animated: true, completion: nil)
+                    }
+                }
+            } catch {
+                print("Error")
+            }
+        }
+    }
 }
 
